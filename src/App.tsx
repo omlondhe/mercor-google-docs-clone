@@ -4,7 +4,7 @@ import Toolbar from "./components/Toolbar";
 import "./styles/App.css";
 
 function App() {
-  const [toolbarOpen, setToolbarOpen] = useState<boolean>(false);
+  const [toolbarOpen, setToolbarOpen] = useState<boolean>(true);
 
   return (
     <div className="app">

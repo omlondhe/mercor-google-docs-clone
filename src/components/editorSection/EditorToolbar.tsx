@@ -7,7 +7,6 @@ import ImagesearchRollerOutlinedIcon from "@mui/icons-material/ImagesearchRoller
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import { useState } from "react";
-import FormatBoldOutlinedIcon from "@mui/icons-material/FormatBoldOutlined";
 import FormatItalicOutlinedIcon from "@mui/icons-material/FormatItalicOutlined";
 import FormatUnderlinedOutlinedIcon from "@mui/icons-material/FormatUnderlinedOutlined";
 import FormatColorTextOutlinedIcon from "@mui/icons-material/FormatColorTextOutlined";
@@ -17,15 +16,25 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { EditorToolbarProps } from "../../types/propTypes";
+import { GoBold } from "react-icons/go";
+import { EditorState, RichUtils } from "draft-js";
 
-function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
+function EditorToolbar({
+  toolbarOpen,
+  setToolbarOpen,
+  editorState,
+  setEditorState,
+}: EditorToolbarProps) {
   const [fontSize, setFontSize] = useState<string>("11");
 
   return (
     <header className="editorToolbar">
       <div className="editorToolbar__tools">
         <div className="editorToolbar__left">
-          <div className="editorToolbar__tool">
+          <div
+            className="editorToolbar__tool"
+            onClick={() => setEditorState(EditorState.undo)}
+          >
             <UTurnLeftIcon
               style={{
                 transform: "rotate(90deg)",
@@ -34,7 +43,10 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
               }}
             />
           </div>
-          <div className="editorToolbar__tool">
+          <div
+            className="editorToolbar__tool"
+            onClick={() => setEditorState(EditorState.redo)}
+          >
             <UTurnLeftIcon
               style={{
                 transform: "rotate(-90deg) rotateY(180deg)",
@@ -43,7 +55,7 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
               }}
             />
           </div>
-          <div className="editorToolbar__tool">
+          <div className="editorToolbar__tool" onClick={() => print()}>
             <LocalPrintshopOutlinedIcon
               style={{
                 color: "#444444",
@@ -67,7 +79,6 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
               }}
             />
           </div>
-          <div className="editorToolbar__partition"></div>
           <div className="editorToolbar__tool editorToolbar__tool_multi-child">
             <p className="editorToolbar__tool_text">100%</p>
             <ArrowDropDownOutlinedIcon fontSize={"small"} />
@@ -77,9 +88,10 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
             <p className="editorToolbar__tool_text">Normal text</p>
             <ArrowDropDownOutlinedIcon fontSize={"small"} />
           </div>
+          <div className="editorToolbar__partition"></div>
           <div
             className="editorToolbar__tool editorToolbar__tool_multi-child"
-            style={{ marginLeft: 10, width: 85 }}
+            style={{ width: 85 }}
           >
             <p className="editorToolbar__tool_text">Arial</p>
             <ArrowDropDownOutlinedIcon fontSize={"small"} />
@@ -110,15 +122,27 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
             />
           </div>
           <div className="editorToolbar__partition"></div>
-          <div className="editorToolbar__tool">
-            <FormatBoldOutlinedIcon
+          <div
+            className="editorToolbar__tool"
+            onClick={() => {
+              setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
+            }}
+          >
+            <GoBold
               style={{
                 color: "#444444",
-                fontSize: 20,
+                fontSize: 15,
               }}
             />
           </div>
-          <div className="editorToolbar__tool">
+          <div
+            className="editorToolbar__tool"
+            onClick={() => {
+              setEditorState(
+                RichUtils.toggleInlineStyle(editorState, "ITALIC")
+              );
+            }}
+          >
             <FormatItalicOutlinedIcon
               style={{
                 color: "#444444",
@@ -126,7 +150,14 @@ function EditorToolbar({ toolbarOpen, setToolbarOpen }: EditorToolbarProps) {
               }}
             />
           </div>
-          <div className="editorToolbar__tool">
+          <div
+            className="editorToolbar__tool"
+            onClick={() => {
+              setEditorState(
+                RichUtils.toggleInlineStyle(editorState, "UNDERLINE")
+              );
+            }}
+          >
             <FormatUnderlinedOutlinedIcon
               style={{
                 color: "#444444",
