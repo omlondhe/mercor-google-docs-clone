@@ -126,6 +126,7 @@ function EditorToolbar({
             className="editorToolbar__tool"
             onClick={() => {
               setEditorState(RichUtils.toggleInlineStyle(editorState, "BOLD"));
+              console.log(RichUtils.getCurrentBlockType(editorState));
             }}
           >
             <GoBold

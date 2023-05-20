@@ -1,4 +1,4 @@
-import { Editor, EditorState } from "draft-js";
+import { EditorState } from "draft-js";
 import { Dispatch, RefObject, SetStateAction } from "react";
 
 export interface ToolbarProps {
